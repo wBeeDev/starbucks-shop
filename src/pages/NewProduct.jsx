@@ -6,6 +6,8 @@ import Button from "../components/ui/Button";
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
+  const [isUploading, setIsUploading] = useState(false);
+  const [sucess, setSucess] = useState();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -17,14 +19,31 @@ export default function NewProduct() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadImage(file).then((url) => {
-      addNewProduct(product, url);
-    });
+    setIsUploading(true);
+    uploadImage(file) //
+      .then((url) => {
+        addNewProduct(product, url) //
+          .then(() => {
+            setSucess("제품이 추가되었습니다.");
+            setTimeout(() => {
+              setSucess(null);
+            }, 4000);
+          });
+      })
+      .finally(() => setIsUploading(false));
   };
   return (
-    <section>
-      {file && <img src={URL.createObjectURL(file)} alt="local file" />}
-      <form onSubmit={handleSubmit}>
+    <section className="w-full text-center">
+      <h2 className="text-2xl font-bold my-4">새로운 제품등록</h2>
+      {sucess && <p className="my-2">✅ {sucess}</p>}
+      {file && (
+        <img
+          className="w-96 mx-auto mb-2"
+          src={URL.createObjectURL(file)}
+          alt="local file"
+        />
+      )}
+      <form className="flex flex-col px-12" onSubmit={handleSubmit}>
         <input
           type="file"
           accept="image/*"
@@ -64,7 +83,10 @@ export default function NewProduct() {
           required
           onChange={handleChange}
         />
-        <Button text={"제품등록"} />
+        <Button
+          text={isUploading ? "Up Loading..🚀" : "제품등록"}
+          disabled={isUploading}
+        />
       </form>
     </section>
   );
