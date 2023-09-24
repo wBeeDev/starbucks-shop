@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { uploadImage } from "../api/uploader";
 import Button from "../components/ui/Button";
 
 export default function NewProduct() {
@@ -15,6 +16,9 @@ export default function NewProduct() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    uploadImage(file).then((url) => {
+      console.log(url);
+    });
   };
   return (
     <section>
@@ -41,6 +45,7 @@ export default function NewProduct() {
           value={product.category ?? ""}
           placeholder="카테고리"
           required
+          onChange={handleChange}
         />
         <input
           type="text"
