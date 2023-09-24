@@ -34,11 +34,11 @@ export default function NewProduct() {
   };
   return (
     <section className="w-full text-center">
-      <h2 className="text-2xl font-bold my-4">새로운 제품등록</h2>
+      <h2 className="my-4 text-2xl font-bold">새로운 제품등록</h2>
       {sucess && <p className="my-2">✅ {sucess}</p>}
       {file && (
         <img
-          className="w-96 mx-auto mb-2"
+          className="mx-auto mb-2 w-96"
           src={URL.createObjectURL(file)}
           alt="local file"
         />
@@ -56,6 +56,14 @@ export default function NewProduct() {
           name="title"
           value={product.title ?? ""}
           placeholder="제품명"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="price"
+          value={product.price ?? ""}
+          placeholder="가격"
           required
           onChange={handleChange}
         />

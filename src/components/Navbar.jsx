@@ -8,10 +8,9 @@ import { useAuthContext } from "./context/AuthContext";
 export default function Navbar() {
   const { user, login, logout } = useAuthContext();
   return (
-    <header className="flex justify-between border-b border-gray-300 p-2">
+    <header className="flex justify-between border-b border-gray-300 p-4 px-32">
       <Link to="/" className="flex items-center text-4xl text-brand">
-        <img className="w-16" src="./starbucks.png" alt="logo" />
-        <h1 className="ml-4">Starbucks Shop</h1>
+        <img className="w-20" src="../images/starbucks.png" alt="logo" />
       </Link>
       <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
